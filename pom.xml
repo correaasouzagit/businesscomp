@@ -20,6 +20,12 @@
 			<version>2.1.13</version>
 		</dependency>
 		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-impl</artifactId>
 			<version>2.1.13</version>
@@ -28,6 +34,11 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>mojarra-jsf-impl</artifactId>
+			<version>2.0.0-b04</version>
 		</dependency>
 	</dependencies>
 	<build>
