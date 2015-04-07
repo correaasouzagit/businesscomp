@@ -37,11 +37,19 @@ public String getHorario() {
     properties.put("javax.persistence.jdbc.password", password );
     properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
     properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+    
+    try {
+        Class.forName("org.postgresql.Driver");
+    } catch (ClassNotFoundException ex) {
+        // Log or abort here
+    }
+    
     EntityManagerFactory factory = Persistence.createEntityManagerFactory("businesscomp", properties);
     
 	//EntityManagerFactory factory = Persistence.createEntityManagerFactory("businesscomp");
 	EntityManager manager = factory.createEntityManager();
 	JpaTest test = new JpaTest(manager);
+	
 
 	EntityTransaction tx = manager.getTransaction();
 	tx.begin();
