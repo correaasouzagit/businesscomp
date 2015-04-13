@@ -60,6 +60,16 @@ public class JpaTest {
 			System.out.println("next employee: " + next);
 		}
 	}
+	
+	public String escreveEmployees() {
+		StringBuilder str = new StringBuilder();
+		List<Employee> resultList = manager.createQuery("Select a From Employee a", Employee.class).getResultList();
+		System.out.println("num of employess:" + resultList.size());
+		for (Employee next : resultList) {
+			str.append(" next employee: " + next);
+		}
+		return str.toString();
+	}
 
 
 }
