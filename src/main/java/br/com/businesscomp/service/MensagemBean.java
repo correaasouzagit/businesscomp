@@ -23,6 +23,7 @@ public class MensagemBean {
 public String getHorario() {
         
     String databaseUrl = System.getenv("DATABASE_URL");
+    
     StringTokenizer st = new StringTokenizer(databaseUrl, ":@/");
     String dbVendor = st.nextToken(); //if DATABASE_URL is set
     String userName = st.nextToken();
@@ -32,21 +33,23 @@ public String getHorario() {
     String databaseName = st.nextToken();
     String jdbcUrl = String.format("jdbc:postgresql://%s:%s/%s?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", host, port, databaseName);
     Map<String, String> properties = new HashMap<String, String>();
-    properties.put("javax.persistence.jdbc.url", databaseUrl );
-    properties.put("javax.persistence.jdbc.user", userName );
-    properties.put("javax.persistence.jdbc.password", password );
+    properties.put("javax.persistence.jdbc.url","jdbc:postgresql://localhost:5432/businesscomp");
+    properties.put("javax.persistence.jdbc.user", userName);
+    properties.put("javax.persistence.jdbc.password", password);
     properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
-    properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+    properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");   
     
-    try {
-        Class.forName("org.postgresql.Driver");
-    } catch (ClassNotFoundException ex) {
-        // Log or abort here
-    }
     
+//    properties.put("javax.persistence.jdbc.url", "jdbc:postgresql://localhost:5432/businesscomp");
+//    properties.put("javax.persistence.jdbc.user", "postgres" );
+//    properties.put("javax.persistence.jdbc.password", "password" );
+//    properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
+//    properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+    
+   
     EntityManagerFactory factory = Persistence.createEntityManagerFactory("businesscomp", properties);
-    
-	//EntityManagerFactory factory = Persistence.createEntityManagerFactory("businesscomp");
+//    
+//	//EntityManagerFactory factory = Persistence.createEntityManagerFactory("businesscomp");
 	EntityManager manager = factory.createEntityManager();
 	JpaTest test = new JpaTest(manager);
 	
@@ -64,6 +67,6 @@ public String getHorario() {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 	System.out.println(".. done");
-	return "Atualizado em " + sdf.format(new Date());
+	return "Atualizado em " + sdf.format(new Date()) + " URL: " + databaseUrl;
   }
 }

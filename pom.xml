@@ -68,6 +68,11 @@
 			<artifactId>mojarra-jsf-impl</artifactId>
 			<version>2.0.0-b04</version>
 		</dependency>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901-1.jdbc4</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>businesscomp</finalName>
@@ -115,11 +120,6 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>1.5.2</version>
-			</dependency>
-			<dependency>
-				<groupId>postgresql</groupId>
-				<artifactId>postgresql</artifactId>
-				<version>9.1-901-1.jdbc4</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
