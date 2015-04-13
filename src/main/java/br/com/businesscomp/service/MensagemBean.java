@@ -22,7 +22,7 @@ public class MensagemBean {
 
 public String getHorario() {
         
-    String databaseUrl = System.getenv("DATABASE_URL");
+//    String databaseUrl = System.getenv("DATABASE_URL");
 //    
 //    StringTokenizer st = new StringTokenizer(databaseUrl, ":@/");
 //    String dbVendor = st.nextToken(); //if DATABASE_URL is set
@@ -67,6 +67,12 @@ public String getHorario() {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 	System.out.println(".. done");
-	return "Atualizado em " + sdf.format(new Date()) + " URL: " + databaseUrl;
+	return "Atualizado em " + sdf.format(new Date());
   }
+
+public String getUrl() {
+    
+    String databaseUrl = System.getenv("DATABASE_URL");
+    return "URL : " + databaseUrl;
+}
 }
