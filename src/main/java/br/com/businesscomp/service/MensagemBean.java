@@ -37,10 +37,10 @@ public class MensagemBean {
 		String port = st.nextToken();
 		String databaseName = st.nextToken();
 		//Use esta linha para heroku
-		//String jdbcUrl = String.format("jdbc:postgresql://%s:%s/%s?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", host, port, databaseName);
+		String jdbcUrl = String.format("jdbc:postgresql://%s:%s/%s?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", host, port, databaseName);
 		//Use esta linha para local
 		//Variavel de ambiente DATABASE_URL = postgres://postgres:postgres@localhost:5432/businesscomp
-		String jdbcUrl = String.format("jdbc:postgresql://%s:%s/%s", host, port, databaseName);
+		//String jdbcUrl = String.format("jdbc:postgresql://%s:%s/%s", host, port, databaseName);
 		Map<String, String> properties = new HashMap<String, String>();
 		properties.put("javax.persistence.jdbc.url",jdbcUrl);
 		properties.put("javax.persistence.jdbc.user", userName);
