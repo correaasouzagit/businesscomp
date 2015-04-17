@@ -25,7 +25,6 @@ public class MensagemBean {
 	}
 
 	public String getEmployees() {
- 
 		String erro = null;
 		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 		DepartmentDAO departmentDAO = new DepartmentDAOImpl();
@@ -40,8 +39,9 @@ public class MensagemBean {
 			e.printStackTrace();
 			erro = e.getMessage();
 		}	
-      
+
 		return "Erro: " + erro + " - - " +  employeeDAO.escreveTodos(Employee.class);
+
 
 	}
 }
