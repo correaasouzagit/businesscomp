@@ -2,18 +2,16 @@ package br.com.businesscomp.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
-import br.com.businesscomp.jpa.JpaTest;
+import br.com.businesscomp.dao.DepartmentDAO;
+import br.com.businesscomp.dao.DepartmentDAOImpl;
+import br.com.businesscomp.dao.EmployeeDAO;
+import br.com.businesscomp.dao.EmployeeDAOImpl;
+import br.com.businesscomp.domain.Department;
+import br.com.businesscomp.domain.Employee;
 
 
 @ManagedBean
@@ -27,44 +25,23 @@ public class MensagemBean {
 	}
 
 	public String getEmployees() {
-
-		String databaseUrl = System.getenv("DATABASE_URL");    
-		StringTokenizer st = new StringTokenizer(databaseUrl, ":@/");
-		String dbVendor = st.nextToken(); //if DATABASE_URL is set
-		String userName = st.nextToken();
-		String password = st.nextToken();
-		String host = st.nextToken();
-		String port = st.nextToken();
-		String databaseName = st.nextToken();
-		//Use esta linha para heroku
-		String jdbcUrl = String.format("jdbc:postgresql://%s:%s/%s?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", host, port, databaseName);
-		//Use esta linha para local
-		//Variavel de ambiente DATABASE_URL = postgres://postgres:postgres@localhost:5432/businesscomp
-		//String jdbcUrl = String.format("jdbc:postgresql://%s:%s/%s", host, port, databaseName);
-		Map<String, String> properties = new HashMap<String, String>();
-		properties.put("javax.persistence.jdbc.url",jdbcUrl);
-		properties.put("javax.persistence.jdbc.user", userName);
-		properties.put("javax.persistence.jdbc.password", password);
-		properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
-		properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");   
-
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("businesscomp", properties);
-
-		EntityManager manager = factory.createEntityManager();
-		JpaTest test = new JpaTest(manager);
-
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
+ 
+		String erro = null;
+		EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+		DepartmentDAO departmentDAO = new DepartmentDAOImpl();
 		try {
-			test.createEmployees();
+			Department department = new Department("teste1");
+			departmentDAO.save(department);			
+			employeeDAO.save(new Employee("Alexandre", department));
+			Department department2 = new Department("teste2");			
+			employeeDAO.save(new Employee("Fernanda", department2));
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		tx.commit();
-
-		test.listEmployees();
-
-		return test.escreveEmployees();
+			erro = e.getMessage();
+		}	
+      
+		return "Erro: " + erro + " - - " +  employeeDAO.escreveTodos(Employee.class);
 
 	}
 }
